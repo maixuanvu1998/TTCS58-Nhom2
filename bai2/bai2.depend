@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1545794178 source:/home/traeh/Projects/bai2/main.cpp
+	<iostream>
+	<string>
+
+1545815345 source:/home/traeh/Projects/TTCS58-Nhom2/bai2/main.cpp
+	<iostream>
+	<string>
+	"libbai2.h"
+
+1545815430 /home/traeh/Projects/TTCS58-Nhom2/bai2/libbai2.h
+
