@@ -1,5 +1,6 @@
 # depslib dependency file v1.0
-1545924387 source:/home/traeh/Projects/TTCS58-Nhom2/bai5/main.cpp
+1546002641 source:/home/traeh/Projects/TTCS58-Nhom2/bai5/main.cpp
 	<iostream>
 	<fstream>
+	<cmath>
 
