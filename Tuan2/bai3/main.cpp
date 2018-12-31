@@ -56,8 +56,8 @@ public:
     void nhapDs();
     void xuatDs();
     void inLuongTangDan();
-
-//    friend bool kiemTra();
+    NhanVien timKiem(string ms);
+    void xoaNhanVien(string ms);
 };
 
 void DSNV::nhapDs() {
@@ -67,7 +67,7 @@ void DSNV::nhapDs() {
         string s;
         getline(f, s); n = atoi(s.c_str());
         ds.resize(n);
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < ds.size(); i++) {
             ds[i].nhap();
         }
     }
@@ -76,60 +76,67 @@ void DSNV::nhapDs() {
 }
 void DSNV::xuatDs() {
     cout << "DANH SACH NHAN VIEN" << endl;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < ds.size(); i++) {
         ds[i].xuat();
         cout << "=====" << endl;
     }
 }
 
 
-bool kiemTra(int m, int arr[], int n) {
-    for (int i = 0 ; i < n ; i++ ) {
-        if (arr[i] == m) {
-            return 1;
-        }
-    }
-    return 0;
-}
-
 void DSNV::inLuongTangDan() {
-    int arr[n];
-    for (int i = 0; i < n; i++) {
+    int arr[ds.size()]; // mang chua thu tu cua nhan vien
+    for (int i = 0; i < ds.size(); i++) {
         arr[i] = i;
     }
 
-
-    for (int i = 0; i < n-1; i++)
-        for (int j = 0; j < n-i-1; j++) {
+    for (int i = 0; i < ds.size()-1; i++)
+        for (int j = 0; j < ds.size()-i-1; j++) {
             if (ds[arr[j]].tinhLuong() < ds[arr[j+1]].tinhLuong())
                 swap(arr[j], arr[j+1]);
         }
 
     cout << "Bang Luong: " << endl;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < ds.size(); i++) {
         cout << "Ma so: " << ds[arr[i]].maSo << endl;
         cout << "Ho ten: " << ds[arr[i]].hoTen << endl;
         cout << "Luong: " << ds[arr[i]].tinhLuong() << endl;
+        cout << "=====" << endl;
     }
 
 }
 
 
+NhanVien DSNV::timKiem(string ms) {
+    for (int i = 0; i < ds.size(); i++) {
+        if (ds[i].maSo == ms)
+            return ds[i];
+    }
+    cout << "Khong tim thay nhan vien" << endl;
+}
+
+void DSNV::xoaNhanVien(string ms) {
+    for (int i = 0 ; i < ds.size() ; i++) {
+        if (ds[i].maSo == ms) {
+            ds.erase(ds.begin() + i);
+        }
+    }
+
+};
 
 
-
-/*
-    tao arr[], arr[1, 2, 3, 4, 5, 6, n]
-    arr[
-    if ds[i].sdf < ds[i].sdlf
-        swap
-*/
 
 
 
 int main() {
     DSNV ds;
     ds.nhapDs();
+    ds.xuatDs();
+    ds.inLuongTangDan();
+
+    cout << "Tim kiem Nhan vien: " << endl;
+    ds.timKiem("13").xuat();
+    cout << "Da xoa nhan vien: " << endl;
+    ds.xoaNhanVien("13");
     ds.xuatDs();
     ds.inLuongTangDan();
 }
