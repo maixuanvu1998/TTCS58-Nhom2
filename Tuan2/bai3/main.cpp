@@ -132,11 +132,9 @@ int main() {
     ds.nhapDs();
     ds.xuatDs();
     ds.inLuongTangDan();
-
     cout << "Tim kiem Nhan vien: " << endl;
     ds.timKiem("13").xuat();
     cout << "Da xoa nhan vien: " << endl;
     ds.xoaNhanVien("13");
     ds.xuatDs();
-    ds.inLuongTangDan();
 }
