@@ -1,15 +1,20 @@
 #include <iostream>
+#include <fstream>
+
 
 using namespace std;
 
 
+int taoNgauNhien(int arr[50][50], int &n, int &m) {
+    cout << "Nhap n: ";
+    cin >> n;
+    m = n;
 
-int taoNgauNhien(int arr[], int n) {
-    n = n * n;
-    for (int i = 0; i < n; i++) {
-        arr[i] = rand() % 50 + 1;
+    for(int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            arr[i][j] = rand() % 50 + 1;
+        }
     }
-
 }
 void xuatMang(int arr[50][50], int n, int m) {
     for (int i = 0; i < n; i++) {
@@ -46,56 +51,57 @@ bool doiXung(int arr[50][50], int n, int m) {
 	return 1;
 }
 
-bool cheoChinhTren(int arr[50][50], int n, int m, int p1, int p2) {
+bool cheoChinh(int arr[50][50], int n, int m, int p1, int p2) {
     int x = arr[p1][p2];
-    p1--, p2--;
-    while(p1 >= 0 && p2 >= 0) {
-        //cout << "x: " << x << " " << "vt: " << arr[p1][p2] << endl;
-        if (x < arr[p1][p2])
+
+    int tmp1 = p1 - 1;
+    int tmp2 = p2 - 1;
+    // cheo chinh tren
+    while(tmp1 >= 0 && tmp2 >= 0) {
+        if (x < arr[tmp1][tmp2])
             return 0;
-        p1--;
-        p2--;
+        tmp1--;
+        tmp2--;
     }
+
+    tmp1 = p1 + 1;
+    tmp2 = p2 + 1;
+    // cheo chinh duoi
+    while(tmp1 < n && tmp2 < m) {
+        if (x < arr[tmp1][tmp2])
+            return 0;
+        tmp1++;
+        tmp2++;
+    }
+
     return 1;
 }
 
-bool cheoChinhDuoi(int arr[50][50], int n, int m, int p1, int p2) {
-    int x = arr[p1][p2];
-    p1++, p2++;
-    while(p1 < n && p2 < m) {
-        //cout << "x: " << x << " " << "vt: " << arr[p1][p2] << endl;
-        if (x < arr[p1][p2])
-            return 0;
-        p1++;
-        p2++;
-    }
-    return 1;
-}
 
 
-bool cheoPhuTren(int arr[50][50], int n, int m, int p1, int p2) {
+bool cheoPhu(int arr[50][50], int n, int m, int p1, int p2) {
     int x = arr[p1][p2];
-    p1--, p2++;
-    while(p1 >= 0 && p2 < m) {
-        //cout << "x: " << x << " " << "vt: " << arr[p1][p2] << endl;
-        if (x < arr[p1][p2])
-            return 0;
-        p1--;
-        p2++;
-    }
-    return 1;
-}
 
-bool cheoPhuDuoi(int arr[50][50], int n, int m, int p1, int p2) {
-    int x = arr[p1][p2];
-    p1++, p2--;
-    while(p1 < m && p2 >= 0) {
-        //cout << "x: " << x << " " << "vt: " << arr[p1][p2] << endl;
-        if (x < arr[p1][p2])
+    int tmp1 = p1 - 1;
+    int tmp2 = p2 + 1;
+    // cheo phu tren
+    while(tmp1 >= 0 && tmp2 < m) {
+        if (x < arr[tmp1][tmp2])
             return 0;
-        p1++;
-        p2--;
+        tmp1--;
+        tmp2++;
     }
+
+    tmp1 = p1 + 1;
+    tmp2 = p2 - 1;
+    // cheo phu duoi
+    while(tmp1 < m && tmp2 >= 0) {
+        if (x < arr[tmp1][tmp2])
+            return 0;
+        tmp1++;
+        tmp2--;
+    }
+
     return 1;
 }
 
@@ -129,25 +135,31 @@ bool ngangDoc(int arr[50][50], int n, int m, int p1, int p2) {
 
 
 void soHoangHau(int arr[50][50], int n, int m) {
+    ofstream outfile;
+    outfile.open("output1.txt");
+
     for (int i =0 ; i < n; i++) {
         for (int j = 0; j < m ; j++) {
-            if (ngangDoc(arr, n, m, i, j) && cheoChinhTren(arr, n, m, i, j) && cheoChinhDuoi(arr, n, m, i, j) && cheoPhuTren(arr, n, m, i, j) && cheoPhuDuoi(arr, n, m, i, j)) {
-                cout << 1 << " ";
-            } else {
-                cout << 0 << " ";
+            if (ngangDoc(arr, n, m, i, j) && cheoChinh(arr, n, m, i, j) && cheoPhu(arr, n, m, i, j)) {
+                outfile << i << " " << j << endl;
             }
         }
-        cout << endl;
     }
+
+    outfile.close();
 }
 
 int main() {
-    int arr[50][50] = {
+    int arr[50][50];
+/*
+    {
         {2, 2, 7},
         {2, 1, 6},
         {5, 6, 2}
-    };
-    int n = 3, m = 3;
+    }
+*/
+    int n, m;
+    taoNgauNhien(arr, n, m);
     //xoaCot(arr, n, m, 1);
     //cout << "doi xung: " << doiXung(arr, n, m) << endl;
     //cout << "check: " << ngangDoc(arr, n, m, 2, 2) << endl;
