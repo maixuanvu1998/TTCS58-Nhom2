@@ -1,0 +1,21 @@
+4
+11
+Tran Hoang A
+1000
+GD
+3000
+12
+Tran Hoang B
+1500
+NV
+3000
+13
+Tran Hoang C
+900
+NV
+3000
+14
+Tran Hoang D
+1000
+NV
+3000

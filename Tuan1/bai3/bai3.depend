@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1545833222 source:/home/traeh/Projects/TTCS58-Nhom2/bai3/main.cpp
+	<iostream>
+	"nhiphan.h"
+
+1545830750 /home/traeh/Projects/TTCS58-Nhom2/bai3/nhiphan.h
+	"libnhiphan.h"
+
+1545833272 /home/traeh/Projects/TTCS58-Nhom2/bai3/libnhiphan.h
+
